@@ -6,10 +6,27 @@
         {{ form.hidden_tag() }}
         <p>
             {{ form.seriesname.label }}<br>
-            {{ form.seriesname(size=50) }}
+            {{ form.seriesname(size=50) }}<br>
+            {% for error in form.seriesname.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
         </p>
         <p>
             {{ form.submit() }}
         </p>
     </form>
+
+
+    {% if series_list %}
+        <h1>Matching TV Series:-</h1>
+        </p>
+            {% for series in series_list %}
+                {% if 'tv' in series['kind'] %}
+                    <a href="{{ url_for('ratings', series_id=series.getID()) }}">
+                        {{ '{0} ({1})'.format(series['title'], series['year']) }}
+                    </a> <br>
+                {% endif %}
+            {% endfor %}
+        </p>
+    {% endif %}
 {% endblock %}
