@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1> TV series ID: {{ series_id }} </h1>
+    <h1> Showing results for TV Series: {{ series_title }} </h1>
+    {% for season, ratings in episodes.items() %}
+    {% endfor %}
 {% endblock%}
 

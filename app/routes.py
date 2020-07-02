@@ -22,4 +22,15 @@ def index():
 
 @app.route('/ratings')
 def ratings():
-    return render_template('ratings.html', series_id=request.args.get('series_id'))
+    ia =IMDb()
+    series = ia.search_movie(request.args.get('series_id'))
+    ia.update(series, 'episodes')
+    episodes_dict = dict()
+    episodes_dct['title'] = '{0} ({1})'.format(series['title'], series['year'])
+    for season, episodes in series['episodes'].items():
+        if season not in episodes_dict:
+            episodes_dict[season] = dict()
+        for episode_num, episode in episodes.items():
+            episodes_dict[season][episode_num] = episode.get('rating')
+
+    return render_template('ratings.html', episodes=episodes_dict)
