@@ -1,8 +1,24 @@
 {% extends "base.html" %}
 
+<head>
+<style>
+table, th, td {
+      border: 1px solid black;
+}
+</style>
+</head>
+
 {% block content %}
-    <h1> Showing results for TV Series: {{ series_title }} </h1>
-    {% for season, ratings in episodes.items() %}
+    <h1> Showing results for TV Series: {{ name }} </h1>
+    <table>
+    {% for season, episode_ratings in episodes.items() %}
+        <tr>
+            <td>Season: {{season}}</td>
+            {% for episode, rating in episode_ratings.items() %}
+            <td>{{ rating }}</td>
+            {% endfor %}
+        </tr>
     {% endfor %}
+    </table>
 {% endblock%}
 
