@@ -1,19 +1,26 @@
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, redirect, url_for, request, jsonify
 from app import app
 from app.forms import MainForm
 from imdb import IMDb
 
-@app.route('/', methods=['GET','POST'])
-@app.route('/search', methods=['GET','POST'])
+@app.route('/', methods=['GET'])
+@app.route('/search', methods=['GET'])
 def search():
-    form = MainForm()
-    series_list=[]
-    if form.validate_on_submit():
-        ia = IMDb()
-        series_list = ia.search_movie(form.seriesname.data)
-        return render_template('form.html', title='Matching TV series', form=form, series_list=series_list)
-        #return redirect(url_for('ratings', tvseries=form.seriesname.data))
-    return render_template('form.html', title='TV series list', form=form)
+    matching_tv_series = dict()
+    ia = IMDb()
+    query = request.args.get("seriesName")
+    series_list = ia.search_movie(query)
+    for series in series_list:
+        if 'tv' in series['kind']:
+            tv_obj = dict()
+            series_name = '{0} ({1})'.format(series['title'], series['year'])
+            tv_obj['id'] = series.getID()
+            tv_obj['URL'] = series.get_fullsizeURL()
+            matching_tv_series[series_name] = tv_obj
+    response = jsonify(matching_tv_series)
+    # https://stackoverflow.com/questions/26980713/solve-cross-origin-resource-sharing-with-flask
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 @app.route('/index')
 def index():
