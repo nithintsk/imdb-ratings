@@ -1,34 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Form from './Form.js';
+import './styles/App.css';
+import Search from './components/Search.js'
+import Results from './components/Results.js'
 
 class App extends React.Component {
+    
+    constructor(props) {
+        super(props);
+        this.state = {
+            results: []
+        }
+        this.updateResults = this.updateResults.bind(this);
+    }
 
-    displayResults = (matchingSeriesList) => {
-        console.log(matchingSeriesList);
+    updateResults = (results) => {
+        console.log(results);
+        this.setState({results});
     };
 
     render() {
-    return (
-         <div className="App">
-             <header className="App-header">
-               <h1>IMDb TV ratings visualizer</h1>
-               <Form onSubmit={this.displayResults} />
-               <img src={logo} className="App-logo" alt="logo" />
-               <p>
-                 Compare the ratings of episodes from S01E01 to the finale using a color coded heatmap
-               </p>
-         {/*<a
-               className="App-link"
-               href="https://reactjs.org"
-               target="_blank"
-               rel="noopener noreferrer"
-             >
-               Learn React
-             </a>*/}
-             </header>
-        </div>
+        const { results } = this.state;
+        return (
+             <div className="App">
+                <header className="App-header">
+                    <h1>IMDb TV ratings visualizer</h1>
+                    <Search onSubmit={this.updateResults} />
+                    <Results results={results}/>
+                </header>
+            </div>
         );
     };
 }
