@@ -8,24 +8,32 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            results: []
+            searchResults: [],
+            ratingsResults: []
         }
-        this.updateResults = this.updateResults.bind(this);
+        this.updateSearchResults = this.updateSearchResults.bind(this);
+        this.updateRatings = this.updateRatings.bind(this);
     }
 
-    updateResults = (results) => {
+    updateSearchResults = (results) => {
         console.log(results);
-        this.setState({results});
+        this.setState({searchResults: results});
+    };
+    
+    updateRatings = (results) => {
+        console.log(results);
+        this.setState({ratingsResults: results});
     };
 
     render() {
-        const { results } = this.state;
+        const {searchResults, ratingsResults} = this.state;
         return (
              <div className="App">
                 <header className="App-header">
                     <h1>IMDb TV ratings visualizer</h1>
-                    <Search onSubmit={this.updateResults} />
-                    <Results results={results}/>
+                    <Search onSubmit={this.updateSearchResults} />
+                    <Results onClick={this.updateRatings} results={searchResults}/>
+                    <Table results={ratingsResults}/>
                 </header>
             </div>
         );
