@@ -33,7 +33,6 @@ class App extends React.Component {
                     <h1>IMDb TV ratings visualizer</h1>
                     <Search onSubmit={this.updateSearchResults} />
                     <Results onClick={this.updateRatings} results={searchResults}/>
-                    <Table results={ratingsResults}/>
                 </header>
             </div>
         );

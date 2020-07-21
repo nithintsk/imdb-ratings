@@ -44,13 +44,17 @@ def ratings():
     for season, episodes in series['episodes'].items():
         if season not in show_ratings:
             show_ratings[season] = dict()
+            show_ratings[season]['season'] = season
         for episode_num, episode in episodes.items():
             val = episode.get('rating')
             if val is not None:
-                show_ratings[season][episode_num] = "{:.2f}".format(val)
+                show_ratings[season][str(episode_num)] = "{:.2f}".format(val)
         if not show_ratings[season]:
             del show_ratings[season]
-    episodes_dict['results'] = show_ratings
+    ratings_list = []
+    for i in range(1, len(show_ratings.keys())+1):
+        ratings_list.append(show_ratings[i])
+    episodes_dict['results'] = ratings_list
 
     response = jsonify(episodes_dict)
     response.headers.add('Access-Control-Allow-Origin', '*')
