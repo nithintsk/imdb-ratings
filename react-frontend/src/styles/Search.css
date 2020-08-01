@@ -1,7 +1,7 @@
 .search-form {
     margin: 20px auto;
     width: 80%;
-    height: 60px;
+    height: 40%;
     max-width: 900px;
 }
 
@@ -10,8 +10,8 @@
 }
 
 .search-form input {
-    width: 40%;
-    padding: 5px;
+    width: 70%;
+    padding: 15px;
     font-size: 24px;
     font-style: italic;
     color: #444;
@@ -23,9 +23,9 @@
 
 .button {
     text-align: center;
-    width: 10%;
-    padding: 8px;
-    font-size: 20px;
+    width: 20%;
+    padding: 16px;
+    font-size: 24px;
     border: none;
     border-radius: 8px;
     outline: 0;

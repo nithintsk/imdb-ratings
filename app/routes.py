@@ -44,7 +44,6 @@ def ratings():
     for season, episodes in series['episodes'].items():
         if season not in show_ratings:
             show_ratings[season] = dict()
-            show_ratings[season]['season'] = season
         for episode_num, episode in episodes.items():
             val = episode.get('rating')
             if val is not None:
