@@ -1,7 +1,9 @@
 import React from 'react';
+import { Browser, Route, Switch} from 'react-router-dom';
 import './styles/App.css';
 import Search from './components/Search.js'
 import Results from './components/Results.js'
+import Table from './components/Table.js'
 
 class App extends React.Component {
     
@@ -33,6 +35,7 @@ class App extends React.Component {
                     <h1>IMDb TV ratings visualizer</h1>
                     <Search onSubmit={this.updateSearchResults} />
                     <Results onClick={this.updateRatings} results={searchResults}/>
+                    <Table results={ratingsResults}/>
                 </header>
             </div>
         );

@@ -13,7 +13,7 @@ def search():
     for series in series_list:
         if 'tv' in series['kind']:
             tv_obj = dict()
-            series_name = '{0} ({1})'.format(series['title'], series['year'])
+            series_name = series['smart long imdb canonical title'] 
             tv_obj['id'] = series.getID()
             tv_obj['URL'] = series.get_fullsizeURL()
             tv_obj['name'] = series_name;
