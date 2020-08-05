@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Redirect } from "react-router-dom";
-import logo from '../logo.svg';
+import Loader from '../loader.gif'; 
 import '../styles/Results.css';
 
 class Results extends React.Component {
@@ -11,6 +11,7 @@ class Results extends React.Component {
         this.state = {
             seriesID: '',
             results : {},
+            loading : false,
             message : '',
             redirect: null
         }
@@ -20,7 +21,7 @@ class Results extends React.Component {
 
     handleClick = async (event, id) => {
         event.preventDefault();
-        this.setState({ seriesID: id },
+        this.setState({ seriesID: id, loading: true },
         () => {
             this.fetchRatings(id);
         });
@@ -41,6 +42,7 @@ class Results extends React.Component {
                     }).catch((error) => {
                         if (axios.isCancel(error) || error) {
                             this.setState({
+                                loading: false,
                                 message: 'Failed to fetch results from backend.'
                             });
                         }
@@ -52,18 +54,14 @@ class Results extends React.Component {
         this.setState({
             results: res.data,
             message: resultNotFoundMsg,
+            loading: false,
             redirect: "/ratings"
         });
     };
 
     render() {
         const results = this.props.results;
-        {/*        
-        if (this.state.redirect) {
-            return <Redirect to={this.state.redirect}/>
-        }
-        */}
-        
+        const {message, loading, redirect} = this.state;
         if (Object.keys(results).length && results.length) {
             return (
                 <div className="results-container">
@@ -84,6 +82,9 @@ class Results extends React.Component {
                             </a>
                         );
                     })}
+                    { message && <p className="message">{message}</p> }
+                    < img src={Loader} className={`search-loading ${ loading ? 'show' : 'hide' }`}
+                      alt="loader"/>
                 </div>
             );
         } else {

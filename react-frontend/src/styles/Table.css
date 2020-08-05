@@ -2,8 +2,15 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
-.static {
-    position: static;
+.season {
+    position: relative;
+    white-space: nowrap;
+    height: auto;
+    color: #ffffff;
+    font-size: 1.5vw;
+    border: 4px solid #282c34;
+    padding: 10px;
+    z-index: 100; 
 }
 
 tbody {

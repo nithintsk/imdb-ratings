@@ -15,7 +15,7 @@ export default class table extends React.Component {
         return table.map((row, index) => {
             return (
                 <tr key={index}>
-                    <td key="season" style={{color:"#FFFFFF"}}><strong>Season {index+1}</strong></td>
+                    <td key="season" className="season"><strong>Season {index+1}</strong></td>
                     {this.renderRow(row)}
                 </tr>
             );

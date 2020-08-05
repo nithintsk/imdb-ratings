@@ -66,9 +66,6 @@ class Search extends React.Component {
 
     render() {
         const {message, loading, redirect} = this.state;
-        {/*if (this.state.redirect) {
-            return <Redirect to={this.state.redirect} />
-        }*/}
         return (
             <div className="search-form">
                 <label className="search-label" htmlFor="search-input">

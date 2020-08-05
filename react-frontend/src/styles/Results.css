@@ -71,3 +71,19 @@
     width: 100%;
     justify-content: center;
 }
+
+.search-loading {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 400;
+}
+
+.show {
+    display: inline-block;
+}
+
+.hide {
+    display: none;
+}
