@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Redirect } from "react-router-dom";
 import logo from '../logo.svg';
 import '../styles/Results.css';
 
@@ -10,7 +11,8 @@ class Results extends React.Component {
         this.state = {
             seriesID: '',
             results : {},
-            message : ''
+            message : '',
+            redirect: null
         }
         this.handleClick = this.handleClick.bind(this);
         this.fetchRatings = this.fetchRatings.bind(this);
@@ -46,15 +48,22 @@ class Results extends React.Component {
         console.log(res.data)
         /*const resultNotFoundMsg = ! res.data.length ? 'No available ratings for the selected TV show.' : '';*/
         const resultNotFoundMsg = ''
+        this.props.onClick(res.data);
         this.setState({
             results: res.data,
-            message: resultNotFoundMsg
+            message: resultNotFoundMsg,
+            redirect: "/ratings"
         });
-        this.props.onClick(res.data);
     };
 
     render() {
         const results = this.props.results;
+        {/*        
+        if (this.state.redirect) {
+            return <Redirect to={this.state.redirect}/>
+        }
+        */}
+        
         if (Object.keys(results).length && results.length) {
             return (
                 <div className="results-container">
@@ -78,14 +87,7 @@ class Results extends React.Component {
                 </div>
             );
         } else {
-            return (
-                <div>
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <p>
-                     Compare the ratings of episodes from S01E01 to the finale using a color coded heatmap
-                    </p>
-                </div>
-            );
+            return (<div></div>);
         }
     }
 }

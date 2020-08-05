@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Redirect } from "react-router-dom";
 import '../styles/Search.css';
 import Loader from '../loader.gif';
 
@@ -11,7 +12,8 @@ class Search extends React.Component {
             seriesName: '',
             results: {},
             loading: false,
-            message: ''
+            message: '',
+            redirect: null
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.fetchSearchResult = this.fetchSearchResults.bind(this);
@@ -53,16 +55,20 @@ class Search extends React.Component {
                         }
                     })
         const resultNotFoundMsg = ! res.data.length ? 'No available search results.' : '';
+        this.props.onSubmit(res.data);
         this.setState({
             results: res.data,
             message: resultNotFoundMsg,
-            loading: false
+            loading: false,
+            redirect: "/searchresults"
         });
-        this.props.onSubmit(res.data);
     };
 
     render() {
-        const {message, loading} = this.state;
+        const {message, loading, redirect} = this.state;
+        {/*if (this.state.redirect) {
+            return <Redirect to={this.state.redirect} />
+        }*/}
         return (
             <div className="search-form">
                 <label className="search-label" htmlFor="search-input">

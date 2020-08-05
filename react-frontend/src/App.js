@@ -19,11 +19,13 @@ class App extends React.Component {
 
     updateSearchResults = (results) => {
         console.log(results);
+        this.setState({ratingsResults: []});
         this.setState({searchResults: results});
     };
     
     updateRatings = (results) => {
         console.log(results);
+        this.setState({searchResults: []});
         this.setState({ratingsResults: results});
     };
 
@@ -36,6 +38,15 @@ class App extends React.Component {
                     <Search onSubmit={this.updateSearchResults} />
                     <Results onClick={this.updateRatings} results={searchResults}/>
                     <Table results={ratingsResults}/>
+                    {/*<Route path="/" render={() =>
+                         <Search onSubmit={this.updateSearchResults} />}
+                    />
+                    <Route path="/searchresults" render={() => 
+                        <Results onClick={this.updateRatings} results={searchResults}/>}
+                    />
+                    <Route path="/ratings" render={() =>
+                        <Table results={ratingsResults}/> }
+                    />*/}
                 </header>
             </div>
         );

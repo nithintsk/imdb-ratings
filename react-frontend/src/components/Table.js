@@ -1,6 +1,4 @@
 import React from 'react';
-import axios from 'axios';
-import logo from '../logo.svg';
 import '../styles/Results.css';
 import '../styles/Table.css';
 
@@ -17,7 +15,7 @@ export default class table extends React.Component {
         return table.map((row, index) => {
             return (
                 <tr key={index}>
-                    <td key="season">Season {index+1}</td>
+                    <td key="season" style={{color:"#FFFFFF"}}><strong>Season {index+1}</strong></td>
                     {this.renderRow(row)}
                 </tr>
             );
@@ -30,17 +28,26 @@ export default class table extends React.Component {
         const red   = Math.round(255 * (x > 50 ? 1-2*(x-50)/100.0 : 1.0));
         const green = Math.round(255 * (x > 50 ? 1.0 : 2*x/100.0));
         const blue  = 100;
-        */
+        
         const green   = Math.round(127 * (2*val/10.0)) ;
         const red = Math.round(255 * 2 * (1-val/10.0));
         const blue  = val > 5 ? Math.round(200 * 2 * (1-val/10.0)) : Math.round(127 * (1.2*val/10.0));
+        */
+        val = 10-val > 0 ? 10-val : 0;
+        const red   = Math.round(200 * (2*val/3.5)) ;
+        const green = Math.round(230 * 2 * (1-val/3.5));
+        /*const temp  = val > 5 ? Math.round(200 * 2 * (1-val/3.0)) : Math.round(127 * (1.2*val/3.0));*/
+        const blue = 0;
         return (`${red},${green},${blue}`)
     }
 
     renderRow = function(rowData) {
         return Object.keys(rowData).map((ep, index) => {
-            return <td key={index} style={{background: "rgb("+ this.getColor(rowData[ep]) +")"}}>
-                { rowData[ep] }
+            return <td key={index} 
+                    style={{background: "rgb("+ this.getColor(rowData[ep]['rating']) +")"}}
+                    title={`Episode: ${index} - ${rowData[ep]['title']}`}
+                    >
+                { rowData[ep]['rating'] }
                 </td>
         })
     }
@@ -55,7 +62,8 @@ export default class table extends React.Component {
                 console.log("Rendering ratings");
                 return (
                     <React.Fragment>
-                        <div className="ratings-table">
+                        <h3>{results.title}   |   Overall rating: {results.rating}/10</h3>
+                        <div>
                             <table>
                                 <tbody>
                                     {this.getRows(ratings_data)}
@@ -78,18 +86,11 @@ export default class table extends React.Component {
         } else {
             return (
                 <div>
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <p>
-                        Loading...
-                    </p>
                 </div>
             );
         }
     }
 }
-/*
-*/
-
 
 /*
 const RenderRow = (props) => {

@@ -2,6 +2,7 @@ from flask import render_template, redirect, url_for, request, jsonify
 from app import app
 from app.forms import MainForm
 from imdb import IMDb
+import collections
 
 @app.route('/', methods=['GET'])
 @app.route('/search', methods=['GET'])
@@ -45,14 +46,21 @@ def ratings():
         if season not in show_ratings:
             show_ratings[season] = dict()
         for episode_num, episode in episodes.items():
-            val = episode.get('rating')
-            if val is not None:
-                show_ratings[season][str(episode_num)] = "{:.2f}".format(val)
+            ep_data = dict()
+            rating_val = episode.get('rating')
+            title_val = episode.get('title')
+            if rating_val is not None:
+                ep_data['rating'] = "{:.2f}".format(rating_val)
+            if title_val is not None:
+                ep_data['title'] = title_val
+            show_ratings[season][episode_num] = ep_data
         if not show_ratings[season]:
             del show_ratings[season]
     ratings_list = []
-    for i in range(1, len(show_ratings.keys())+1):
-        ratings_list.append(show_ratings[i])
+    od = collections.OrderedDict(sorted(show_ratings.items()))
+    for k, v in od.items():
+        if k >= 0:
+            ratings_list.append(v)
     episodes_dict['results'] = ratings_list
 
     response = jsonify(episodes_dict)
