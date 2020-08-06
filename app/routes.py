@@ -35,9 +35,9 @@ def ratings():
     series = ia.get_movie(request.args.get('series_id'))
     ia.update(series, 'episodes')
     episodes_dict = dict()
-    episodes_dict['title']       = series['original title']
-    episodes_dict['rating']      = series['rating']
-    episodes_dict['num_seasons'] = series['number of seasons']
+    episodes_dict['title']       = series.get('original title')
+    episodes_dict['rating']      = series.get('rating')
+    episodes_dict['num_seasons'] = series.get('number of seasons')
     episodes_dict['coverURL']    = series.get_fullsizeURL()
     episodes_dict['URL']         = 'http://www.imdb.com/title/tt{0}/'.format(request.args.get('series_id'))
     
@@ -51,9 +51,11 @@ def ratings():
             title_val = episode.get('title')
             if rating_val is not None:
                 ep_data['rating'] = "{:.2f}".format(rating_val)
-            if title_val is not None:
-                ep_data['title'] = title_val
-            show_ratings[season][episode_num] = ep_data
+                if title_val is not None:
+                    ep_data['title'] = title_val
+                else:
+                    ep_data['title'] = "Unknown"
+                show_ratings[season][episode_num] = ep_data
         if not show_ratings[season]:
             del show_ratings[season]
     ratings_list = []
