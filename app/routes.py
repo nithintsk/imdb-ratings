@@ -1,19 +1,28 @@
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, redirect, url_for, request, jsonify
 from app import app
 from app.forms import MainForm
 from imdb import IMDb
+import collections
 
-@app.route('/', methods=['GET','POST'])
-@app.route('/search', methods=['GET','POST'])
+@app.route('/', methods=['GET'])
+@app.route('/search', methods=['GET'])
 def search():
-    form = MainForm()
-    series_list=[]
-    if form.validate_on_submit():
-        ia = IMDb()
-        series_list = ia.search_movie(form.seriesname.data)
-        return render_template('form.html', title='Matching TV series', form=form, series_list=series_list)
-        #return redirect(url_for('ratings', tvseries=form.seriesname.data))
-    return render_template('form.html', title='TV series list', form=form)
+    matching_tv_series = list()
+    ia = IMDb()
+    query = request.args.get("seriesName")
+    series_list = ia.search_movie(query)
+    for series in series_list:
+        if 'tv' in series['kind']:
+            tv_obj = dict()
+            series_name = series['smart long imdb canonical title'] 
+            tv_obj['id'] = series.getID()
+            tv_obj['URL'] = series.get_fullsizeURL()
+            tv_obj['name'] = series_name;
+            matching_tv_series.append(tv_obj)
+    response = jsonify(matching_tv_series)
+    # https://stackoverflow.com/questions/26980713/solve-cross-origin-resource-sharing-with-flask
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 @app.route('/index')
 def index():
@@ -26,15 +35,34 @@ def ratings():
     series = ia.get_movie(request.args.get('series_id'))
     ia.update(series, 'episodes')
     episodes_dict = dict()
-    series_name = '{0} ({1})'.format(series['title'], series['year'])
+    episodes_dict['title']       = series['original title']
+    episodes_dict['rating']      = series['rating']
+    episodes_dict['num_seasons'] = series['number of seasons']
+    episodes_dict['coverURL']    = series.get_fullsizeURL()
+    episodes_dict['URL']         = 'http://www.imdb.com/title/tt{0}/'.format(request.args.get('series_id'))
+    
+    show_ratings = dict()
     for season, episodes in series['episodes'].items():
-        if season not in episodes_dict:
-            episodes_dict[season] = dict()
+        if season not in show_ratings:
+            show_ratings[season] = dict()
         for episode_num, episode in episodes.items():
-            val = episode.get('rating')
-            if val is not None:
-                episodes_dict[season][episode_num] = "{:.2f}".format(val)
-        if not episodes_dict[season]:
-            del episodes_dict[season]
+            ep_data = dict()
+            rating_val = episode.get('rating')
+            title_val = episode.get('title')
+            if rating_val is not None:
+                ep_data['rating'] = "{:.2f}".format(rating_val)
+            if title_val is not None:
+                ep_data['title'] = title_val
+            show_ratings[season][episode_num] = ep_data
+        if not show_ratings[season]:
+            del show_ratings[season]
+    ratings_list = []
+    od = collections.OrderedDict(sorted(show_ratings.items()))
+    for k, v in od.items():
+        if k >= 0:
+            ratings_list.append(v)
+    episodes_dict['results'] = ratings_list
 
-    return render_template('ratings.html', episodes=episodes_dict, name=series_name)
+    response = jsonify(episodes_dict)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response

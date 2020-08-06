@@ -1,0 +1,14 @@
+.horizontalgap {
+  float: left;
+  overflow: hidden;
+  height: 1px;
+  width: 20px;
+  padding: 20px;
+}
+
+.navbar {
+  min-height: 7vh;
+}
+
+.navbar-brand {
+}
