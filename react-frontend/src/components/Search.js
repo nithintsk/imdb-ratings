@@ -36,7 +36,7 @@ class Search extends React.Component {
 
     fetchSearchResults = async (updatedPageNo = '', seriesName) => {
         const pageNumber = updatedPageNo ? `&page=${updatedPageNo}` : '';
-        const searchUrl = 'http://localhost:5000/search';
+        const searchUrl = '/search';
         if (this.cancel) {
             this.cancel.cancel();    
         }
