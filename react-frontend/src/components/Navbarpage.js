@@ -16,7 +16,7 @@ class NavbarPage extends Component {
     render() {
           return (
                   <Router>
-                    <MDBNavbar color="light-blue lighten-2" dark expand="md">
+                    <MDBNavbar className="navbar" fixed="top" color="light-blue lighten-2" dark expand="md">
                       <MDBNavbarBrand color="">
                         {/*<strong className="white-text">A hobby project by Nithin Senthil Kumar</strong>*/}
                         <strong className="text-dark" size="3x">A hobby project by Nithin Senthil Kumar</strong>
@@ -30,13 +30,13 @@ class NavbarPage extends Component {
                               <MDBIcon icon="globe-americas" size="3x" className="text-dark"/>
                             </a>
                           </MDBNavItem>
-                          <div class="horizontalgap"></div>
+                          <div className="horizontalgap"></div>
                           <MDBNavItem>
                             <a key="linkedin" className="waves-effect waves-light" href="http://linkedin.com/in/nithintsk">
                               <MDBIcon fab icon="linkedin" size="3x" className="text-dark"/>
                             </a>
                           </MDBNavItem>
-                          <div class="horizontalgap"></div>
+                          <div className="horizontalgap"></div>
                           <MDBNavItem>
                             <a key="github" className="waves-effect waves-light" href="http://github.com/nithintsk">
                               <MDBIcon fab icon="github" size="3x" className="text-dark"/>

@@ -79,7 +79,7 @@ class Search extends React.Component {
                             required
                         />
                         &nbsp;&nbsp;
-                        <button className="button">Search</button>
+                        <button className="buttonSearch">Search</button>
                     </form>
                 </label>
                 { message && <p className="message">{message}</p> }

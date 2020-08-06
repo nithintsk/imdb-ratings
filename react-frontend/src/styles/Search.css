@@ -22,15 +22,18 @@
     outline: 0;
 }
 
-.button {
+.buttonSearch {
     text-align: center;
     width: 20%;
-    padding: 16px;
+    padding: 16px 5px;
     font-size: 24px;
     border: none;
     border-radius: 8px;
     outline: 0;
     transition-duration: 0.3s;
+    overflow: hidden;
+    margin: auto;
+    white-space: initial;
 }
 
 .button:hover {

@@ -41,7 +41,8 @@ export default class table extends React.Component {
 
     renderRow = function(rowData) {
         return Object.keys(rowData).map((ep, index) => {
-            return <td key={index} 
+            return <td key={index}
+                    className="ratingcell"
                     style={{background: "rgb("+ this.getColor(rowData[ep]['rating']) +")"}}
                     title={`Episode: ${index+1} - ${rowData[ep]['title']}`}
                     >
@@ -52,12 +53,9 @@ export default class table extends React.Component {
     
     render() {
         const results = this.props.results;
-        console.log(Object.keys(results).length);
         if (Object.keys(results).length) {
-            console.log("Results Obtained");
             const ratings_data = results.results;
             if (Object.keys(ratings_data).length && ratings_data.length) {
-                console.log("Rendering ratings");
                 return (
                     <div className="outer-container">
                         <h3>{results.title}   |   Overall rating: {results.rating}/10</h3>

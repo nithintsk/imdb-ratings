@@ -21,7 +21,7 @@ class Results extends React.Component {
 
     handleClick = async (event, id) => {
         event.preventDefault();
-        this.setState({ seriesID: id, loading: true },
+        this.setState({ seriesID: id, loading: true, message: '' },
         () => {
             this.fetchRatings(id);
         });
@@ -49,7 +49,6 @@ class Results extends React.Component {
                     })
         console.log(res.data)
         const resultNotFoundMsg = ! res.data.length ? 'No available ratings for the selected TV show.' : '';
-        const resultNotFoundMsg = ''
         this.props.onClick(res.data);
         this.setState({
             results: res.data,
@@ -82,7 +81,7 @@ class Results extends React.Component {
                             </a>
                         );
                     })}
-                    { message && <p className="message">{message}</p> }
+                    {/*{ message && <p className="message">{message}</p> }*/}
                     < img src={Loader} className={`search-loading ${ loading ? 'show' : 'hide' }`}
                       alt="loader"/>
                 </div>
