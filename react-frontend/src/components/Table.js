@@ -1,5 +1,4 @@
 import React from 'react';
-import '../styles/Results.css';
 import '../styles/Table.css';
 
 export default class table extends React.Component {
@@ -36,7 +35,6 @@ export default class table extends React.Component {
         val = 10-val > 0 ? 10-val : 0;
         const red   = Math.round(200 * (2*val/3.5)) ;
         const green = Math.round(230 * 2 * (1-val/3.5));
-        /*const temp  = val > 5 ? Math.round(200 * 2 * (1-val/3.0)) : Math.round(127 * (1.2*val/3.0));*/
         const blue = 0;
         return (`${red},${green},${blue}`)
     }
@@ -45,7 +43,7 @@ export default class table extends React.Component {
         return Object.keys(rowData).map((ep, index) => {
             return <td key={index} 
                     style={{background: "rgb("+ this.getColor(rowData[ep]['rating']) +")"}}
-                    title={`Episode: ${index} - ${rowData[ep]['title']}`}
+                    title={`Episode: ${index+1} - ${rowData[ep]['title']}`}
                     >
                 { rowData[ep]['rating'] }
                 </td>
@@ -61,26 +59,24 @@ export default class table extends React.Component {
             if (Object.keys(ratings_data).length && ratings_data.length) {
                 console.log("Rendering ratings");
                 return (
-                    <React.Fragment>
+                    <div className="outer-container">
                         <h3>{results.title}   |   Overall rating: {results.rating}/10</h3>
-                        <div>
+                        <div className="table-container">
                             <table>
                                 <tbody>
                                     {this.getRows(ratings_data)}
                                 </tbody>
                             </table>
                         </div>
-                    </React.Fragment>
+                    </div>
                 );
             } else {
                 return (
-                    <React.Fragment>
                         <div>
                             <p>
                                 No data found for the selected TV show.
                             </p>
                         </div>
-                    </React.Fragment>
                 );
             }
         } else {

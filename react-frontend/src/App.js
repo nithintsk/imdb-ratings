@@ -18,13 +18,11 @@ class App extends React.Component {
     }
 
     updateSearchResults = (results) => {
-        console.log(results);
         this.setState({ratingsResults: []});
         this.setState({searchResults: results});
     };
     
     updateRatings = (results) => {
-        console.log(results);
         this.setState({searchResults: []});
         this.setState({ratingsResults: results});
     };
@@ -34,7 +32,7 @@ class App extends React.Component {
         return (
              <div className="App">
                 <header className="App-header">
-                    <h1>IMDb TV ratings visualizer</h1>
+                    <div className="titleMsg">IMDb TV ratings visualizer</div>
                     <Search onSubmit={this.updateSearchResults} />
                     <Results onClick={this.updateRatings} results={searchResults}/>
                     <Table results={ratingsResults}/>

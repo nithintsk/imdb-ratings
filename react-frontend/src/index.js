@@ -3,10 +3,15 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import './styles/index.css';
 import App from './App';
+import Navbarpage from './components/Navbarpage.js';
 import * as serviceWorker from './serviceWorker';
+import '@fortawesome/fontawesome-free/css/all.min.css'; import
+'bootstrap-css-only/css/bootstrap.min.css'; import
+'mdbreact/dist/css/mdb.css';
 
 ReactDOM.render(
   <BrowserRouter>
+    <Navbarpage />
     <App />
   </BrowserRouter>,
   document.getElementById('root')

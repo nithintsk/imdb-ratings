@@ -2,6 +2,14 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
+.outer-container {
+    width: 100%;
+}
+
+.table-container {
+    overflow-x: scroll;
+}
+
 .season {
     position: relative;
     white-space: nowrap;

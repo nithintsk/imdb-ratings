@@ -48,7 +48,7 @@ class Results extends React.Component {
                         }
                     })
         console.log(res.data)
-        /*const resultNotFoundMsg = ! res.data.length ? 'No available ratings for the selected TV show.' : '';*/
+        const resultNotFoundMsg = ! res.data.length ? 'No available ratings for the selected TV show.' : '';
         const resultNotFoundMsg = ''
         this.props.onClick(res.data);
         this.setState({
