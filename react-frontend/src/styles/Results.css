@@ -45,6 +45,7 @@
 .image-name {
     color: coral;
     font-size: 18px;
+    font-weight: 600;
     position: absolute;
     bottom: 0;
     right: 0;

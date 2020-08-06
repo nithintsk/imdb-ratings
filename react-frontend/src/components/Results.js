@@ -29,7 +29,7 @@ class Results extends React.Component {
 
     fetchRatings = async (id) => {
         console.log(id);
-        const searchUrl = 'http://localhost:5000/ratings';
+        const searchUrl = '/ratings';
         if (this.cancel) {
             this.cancel.cancel();    
         }
