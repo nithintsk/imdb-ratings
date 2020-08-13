@@ -1,10 +1,10 @@
 # Heatmap of TV show ratings - [tv-ratings.live](https://tv-ratings.live)
 
-One weekend, I was discussing with my friends bout how certain popular TV shows became better over time and others worsened(Looking at you, Game of Thrones). I told them that I'd only start watching a show if it's ratings suggest that the show gets better over seasons. 
+One weekend, I was discussing with my friends bout how certain popular TV shows became better over time and others worsened(Looking at you, Game of Thrones). I told them that I'd only start watching a show if it's ratings suggest that the show gets better over the seasons. 
 
 But apart from word of mouth, I did not find a way to actually visualize how shows fared over time. 
 
-So I decided to do it myself. This is the result.
+So I decided to do it myself using imdb as the source of ratings. This is the result.
 
 # IMDb TV-ratings visualizer.
 
